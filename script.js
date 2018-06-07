@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         Filmweb - seen movies hider
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/kmanijak/filmweb-seen-movies-hider
 // @version      0.1
+// @updateURL    https://github.com/kmanijak/filmweb-seen-movies-hider/edit/master/script.js
 // @description  Hide movies you've seen on Filmweb rankings
 // @author       Karol Manijak & Justyna Sroka
 // @match        http://www.filmweb.pl/ranking/*
