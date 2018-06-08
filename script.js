@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Filmweb - seen movies hider
 // @namespace    https://github.com/kmanijak/filmweb-seen-movies-hider
-// @version      0.1
+// @version      0.2
 // @updateURL    https://raw.githubusercontent.com/kmanijak/filmweb-seen-movies-hider/master/script.js
 // @description  Hide movies you've seen on Filmweb rankings
 // @author       Karol Manijak & Justyna Sroka
@@ -40,7 +40,7 @@ GM_addStyle(
         }
 
         return Array.prototype.filter.call(movies, movie => (
-            movie.querySelector('.filmPoster__ribbon').querySelector('strong')
+            window.getComputedStyle(movie.querySelector('.ifw-flag')).color === 'rgb(255, 196, 4)'
         ))
     };
 
@@ -81,7 +81,8 @@ GM_addStyle(
         const paragraph = document.createElement('strong');
         const anchorPlace = document.querySelector('.amount');
         const seenMovies = Number(anchorPlace.innerHTML);
-        const percentage = seenMovies / 500 * 100;
+        const allMovies = Number(document.querySelector('.ranking__user-see-info').childNodes[3].textContent.split(' ')[2])
+        const percentage = seenMovies / allMovies * 100;
         paragraph.innerHTML = ` (${Math.round(percentage * 10) / 10}%)`;
 
         addToDOM(anchorPlace, paragraph);
