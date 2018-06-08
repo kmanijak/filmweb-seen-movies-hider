@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Filmweb - seen movies hider
 // @namespace    https://github.com/kmanijak/filmweb-seen-movies-hider
-// @version      0.2
+// @version      0.3
 // @updateURL    https://raw.githubusercontent.com/kmanijak/filmweb-seen-movies-hider/master/script.js
 // @description  Hide movies you've seen on Filmweb rankings
 // @author       Karol Manijak & Justyna Sroka
@@ -19,6 +19,7 @@ GM_addStyle(
 
 (function() {
     'use strict';
+    let firstUsage = true;
     let moviesHidden = false;
     let movies = null;
 
@@ -44,11 +45,34 @@ GM_addStyle(
         ))
     };
 
+    const getNotSeenMovies = () => {
+        if (!movies) {
+            movies = document.querySelectorAll('.item.place');
+        }
+
+        return Array.prototype.filter.call(movies, movie => (
+            window.getComputedStyle(movie.querySelector('.ifw-flag')).color !== 'rgb(255, 196, 4)'
+        ))
+    };
+
     const changeMoviesDisplay = (display) => {
         const seenMovies = getSeenMovies();
-        Array.prototype.map.call(getSeenMovies(), movie => {
+
+        Array.prototype.map.call(seenMovies, movie => {
             movie.style.display = display;
-        })
+        });
+
+        if (firstUsage) {
+            const notSeenMovies = getNotSeenMovies();
+            Array.prototype.map.call(notSeenMovies, movie => {
+                const poster = movie.querySelector('.filmPoster__image');
+                const src = poster.getAttribute('data-src');
+                if (src) {
+                    poster.setAttribute('src', src);
+                }
+            });
+            firstUsage = false;
+        }
     }
 
     const changeButtonText = (text) => {
