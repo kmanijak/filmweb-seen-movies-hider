@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Filmweb - seen movies hider
 // @namespace    https://github.com/kmanijak/filmweb-seen-movies-hider
-// @version      0.3
+// @version      0.4
 // @updateURL    https://raw.githubusercontent.com/kmanijak/filmweb-seen-movies-hider/master/script.js
 // @description  Hide movies you've seen on Filmweb rankings
 // @author       Karol Manijak & Justyna Sroka
-// @match        http://www.filmweb.pl/ranking/*
+// @match        https://www.filmweb.pl/ranking/*
 // @grant GM_addStyle
 // ==/UserScript==
 
@@ -41,7 +41,7 @@ GM_addStyle(
         }
 
         return Array.prototype.filter.call(movies, movie => (
-            window.getComputedStyle(movie.querySelector('.ifw-flag')).color === 'rgb(255, 196, 4)'
+            window.getComputedStyle(movie.querySelector('.ifw-flag')).color === 'rgb(255, 194, 0)'
         ))
     };
 
@@ -51,7 +51,7 @@ GM_addStyle(
         }
 
         return Array.prototype.filter.call(movies, movie => (
-            window.getComputedStyle(movie.querySelector('.ifw-flag')).color !== 'rgb(255, 196, 4)'
+            window.getComputedStyle(movie.querySelector('.ifw-flag')).color !== 'rgb(255, 194, 0)'
         ))
     };
 
